@@ -24,60 +24,148 @@ ev_station_optimization/
 ├── backend/                  # FastAPI backend
 │   ├── main.py              # API server with NSGA-II optimization
 │   └── requirements.txt     # Python dependencies
+├── start_backend.bat        # Windows batch file to start backend
+├── start_frontend.bat       # Windows batch file to start frontend
 └── README.md
 ```
 
-## 🚀 Quick Start
+## 🚀 Quick Start for Windows
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- Python (v3.8 or higher)
-- npm or yarn
-
-### Backend Setup
-
-1. Navigate to the backend directory:
-```bash
-cd backend
+**1. Install Node.js (Required for Frontend)**
+- Download from: https://nodejs.org/
+- Choose the **LTS version** (recommended)
+- Run the installer and follow the setup wizard
+- Verify installation by opening Command Prompt and running:
+```cmd
+node --version
+npm --version
 ```
 
-2. Create a virtual environment:
-```bash
+**2. Install Python (Required for Backend)**
+- Download from: https://www.python.org/downloads/
+- Choose **Python 3.8 or higher**
+- ⚠️ **IMPORTANT**: Check "Add Python to PATH" during installation
+- Verify installation by opening Command Prompt and running:
+```cmd
+python --version
+pip --version
+```
+
+**3. Install Git (Optional but Recommended)**
+- Download from: https://git-scm.com/download/win
+- Use default settings during installation
+
+### 🎯 Easy Setup (Recommended)
+
+**Option 1: Using Batch Files (Easiest)**
+
+1. **Download/Clone the project** to your computer
+2. **Open two Command Prompt windows** (or PowerShell)
+3. **In the first window**, run:
+```cmd
+cd path\to\ev_station_optimization
+start_backend.bat
+```
+4. **In the second window**, run:
+```cmd
+cd path\to\ev_station_optimization
+start_frontend.bat
+```
+5. **Open your browser** and go to `http://localhost:3000`
+
+### 🔧 Manual Setup (Step-by-Step)
+
+**Backend Setup:**
+
+1. **Open Command Prompt** as Administrator (Right-click → "Run as administrator")
+
+2. **Navigate to the project directory:**
+```cmd
+cd C:\path\to\ev_station_optimization\backend
+```
+
+3. **Create a virtual environment:**
+```cmd
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. Install dependencies:
-```bash
+4. **Activate the virtual environment:**
+```cmd
+venv\Scripts\activate
+```
+You should see `(venv)` at the beginning of your command prompt.
+
+5. **Install Python dependencies:**
+```cmd
 pip install -r requirements.txt
 ```
 
-4. Start the FastAPI server:
-```bash
+6. **Start the backend server:**
+```cmd
 python main.py
 ```
+You should see: `INFO: Uvicorn running on http://0.0.0.0:8000`
 
-The backend will be available at `http://localhost:8000`
+**Frontend Setup (In a new Command Prompt window):**
 
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-```bash
-cd frontend
+1. **Navigate to the frontend directory:**
+```cmd
+cd C:\path\to\ev_station_optimization\frontend
 ```
 
-2. Install dependencies:
-```bash
+2. **Install Node.js dependencies:**
+```cmd
 npm install
 ```
 
-3. Start the development server:
-```bash
+3. **Start the frontend development server:**
+```cmd
 npm start
 ```
+Your browser should automatically open to `http://localhost:3000`
 
-The frontend will be available at `http://localhost:3000`
+### 🚨 Troubleshooting for Windows
+
+**If you get "python is not recognized":**
+- Python wasn't added to PATH during installation
+- Reinstall Python and check "Add Python to PATH"
+- Or manually add Python to PATH in System Environment Variables
+
+**If you get "node is not recognized":**
+- Node.js wasn't installed properly
+- Reinstall Node.js from the official website
+- Restart Command Prompt after installation
+
+**If you get "pip is not recognized":**
+- Try using `python -m pip` instead of `pip`
+- Or reinstall Python with PATH option checked
+
+**If port 8000 or 3000 is already in use:**
+- Close other applications using these ports
+- Or restart your computer to free up ports
+
+**If the backend won't start:**
+- Make sure you're in the correct directory (`backend` folder)
+- Ensure virtual environment is activated (you see `(venv)` in prompt)
+- Try running `pip install --upgrade pip` first
+
+**If the frontend won't start:**
+- Make sure you're in the correct directory (`frontend` folder)
+- Try deleting `node_modules` folder and running `npm install` again
+- Check if Node.js version is 14 or higher
+
+## ⚡ Super Quick Start (Windows)
+
+**Just want to run it? Follow these 3 steps:**
+
+1. **Install Python** from https://www.python.org/downloads/ (check "Add Python to PATH")
+2. **Install Node.js** from https://nodejs.org/ (choose LTS version)
+3. **Double-click** `start_backend.bat` and `start_frontend.bat` in two separate Command Prompt windows
+4. **Open** http://localhost:3000 in your browser
+
+That's it! 🎉
 
 ## 🎯 How It Works
 
@@ -91,7 +179,7 @@ The optimization problem aims to:
 
 - **EV Users**: Simulated based on Pune's major areas with different densities
 - **Potential Stations**: 10 locations across Pune with varying installation costs
-- **Coverage**: Each station covers users within a configurable radius (default: 3km)
+- **Coverage**: Each station covers users within a configurable radius (default: 5km)
 
 ### Algorithm
 
@@ -116,14 +204,27 @@ The project includes these Pune areas:
 
 ## 🎮 Usage
 
-1. **Adjust Parameters**: Set population size, generations, and coverage radius
-2. **Run Optimization**: Click "🚀 Run Optimization" to start the NSGA-II algorithm
-3. **View Results**: 
-   - Green dots show EV users on the map
-   - Blue markers show selected charging stations
-   - Light blue circles show coverage areas
-4. **Explore Solutions**: Click on points in the Pareto front chart to see different solutions
-5. **Compare Trade-offs**: Analyze the cost vs coverage relationship
+### For Windows Users:
+
+1. **Start the Application**:
+   - Run `start_backend.bat` in one Command Prompt window
+   - Run `start_frontend.bat` in another Command Prompt window
+   - Open http://localhost:3000 in your browser
+
+2. **Use the Interface**:
+   - **Adjust Parameters**: Set population size (50), generations (100), and coverage radius (5km)
+   - **Run Optimization**: Click "🚀 Run Optimization" to start the NSGA-II algorithm
+   - **View Results**: 
+     - Green dots show EV users on the map
+     - Blue markers show selected charging stations
+     - Light blue circles show coverage areas
+   - **Explore Solutions**: Click on points in the Pareto front chart to see different solutions
+   - **Compare Trade-offs**: Analyze the cost vs coverage relationship
+
+3. **Understanding the Results**:
+   - **Pareto Front Chart**: Shows cost vs coverage trade-offs
+   - **Map Visualization**: Interactive Pune city map with station placements
+   - **Solution Details**: Cost, coverage percentage, and selected stations
 
 ## 📊 Key Metrics
 
