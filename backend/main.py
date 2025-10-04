@@ -36,7 +36,7 @@ PUNE_AREAS = [
 class OptimizationRequest(BaseModel):
     population_size: int = 50
     generations: int = 100
-    coverage_radius: float = 0.03  # ~3km in lat/lon units
+    coverage_radius: float = 0.05  # ~5km in lat/lon units
 
 class OptimizationResponse(BaseModel):
     solutions: List[Dict[str, Any]]
@@ -46,22 +46,25 @@ class OptimizationResponse(BaseModel):
 
 class EVChargingProblem(ElementwiseProblem):
     def __init__(self, costs, users, locations, coverage_radius):
-        super().__init__(n_var=len(costs), n_obj=2, xl=0, xu=1, type_var=int)
+        super().__init__(n_var=len(costs), n_obj=2, xl=0, xu=1)
         self.costs = costs
         self.users = users
         self.locations = locations
         self.coverage_radius = coverage_radius
 
     def _evaluate(self, x, out, *args, **kwargs):
+        # Convert continuous variables to binary (threshold at 0.5)
+        x_binary = (x > 0.5).astype(int)
+        
         # Calculate total installation cost
-        total_cost = np.sum(x * self.costs)
+        total_cost = np.sum(x_binary * self.costs)
         
         # Calculate coverage (number of users covered)
         coverage = 0
         for user in self.users:
             user_covered = False
-            for j in range(len(x)):
-                if x[j] == 1:  # If station is placed at location j
+            for j in range(len(x_binary)):
+                if x_binary[j] == 1:  # If station is placed at location j
                     distance = np.sqrt((user[0] - self.locations[j][0])**2 + 
                                      (user[1] - self.locations[j][1])**2)
                     if distance <= self.coverage_radius:
@@ -69,6 +72,7 @@ class EVChargingProblem(ElementwiseProblem):
                         break
             if user_covered:
                 coverage += 1
+        
         
         # Minimize cost, maximize coverage (negative for minimization)
         out["F"] = [total_cost, -coverage]
@@ -126,7 +130,7 @@ async def optimize_stations(request: OptimizationRequest):
         
         # Create and solve optimization problem
         problem = EVChargingProblem(costs, users, locations, request.coverage_radius)
-        algorithm = NSGA2(pop_size=request.population_size)
+        algorithm = NSGA2(pop_size=request.population_size, eliminate_duplicates=True)
         
         res = minimize(problem, algorithm, ('n_gen', request.generations), verbose=False)
         
@@ -135,9 +139,12 @@ async def optimize_stations(request: OptimizationRequest):
         pareto_front = []
         
         for i, solution in enumerate(res.X):
+            # Convert continuous variables to binary (threshold at 0.5)
+            solution_binary = (solution > 0.5).astype(int)
+            
             if res.F[i][0] > 0:  # Valid solution
                 selected_stations = []
-                for j, is_selected in enumerate(solution):
+                for j, is_selected in enumerate(solution_binary):
                     if is_selected == 1:
                         selected_stations.append(potential_stations[j])
                 
