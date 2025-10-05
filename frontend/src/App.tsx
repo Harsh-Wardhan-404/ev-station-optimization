@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, CircleMarker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Circle, CircleMarker, Popup } from 'react-leaflet';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -197,13 +197,12 @@ function App() {
 
             {/* Coverage Circles */}
             {selectedSolution?.selected_stations.map((station) => (
-              <CircleMarker
+              <Circle
                 key={`coverage-${station.id}`}
                 center={[station.lat, station.lon]}
-                radius={coverageRadius * 100000} // Convert to meters
-                color="blue"
-                fillColor="lightblue"
-                fillOpacity={0.1}
+                radius={coverageRadius * 100000} // km->m
+                pathOptions={{ color: '#3b82f6', weight: 1, fillColor: '#60a5fa', fillOpacity: 0.05 }}
+                interactive={false}
               />
             ))}
           </MapContainer>
