@@ -54,14 +54,18 @@
 }
 
 .controls-panel {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 1.25rem;
   margin: 0 2rem 2rem 2rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.35),
+    0 0 40px rgba(99,102,241,.15),
+    inset 0 1px 0 rgba(255,255,255,.04);
   display: flex;
-  gap: 2rem;
+  gap: 1.25rem;
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
@@ -76,42 +80,49 @@
 
 .control-group label {
   font-weight: 600;
-  color: #555;
+  color: #cbd5e1;
   font-size: 0.9rem;
 }
 
 .control-group input {
-  padding: 0.75rem;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(148,163,184,0.25);
+  border-radius: 10px;
   font-size: 1rem;
-  transition: all 0.3s ease;
-  background: white;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.06);
+  color: #e5e7eb;
 }
+.control-group input::placeholder { color: #94a3b8; }
 
 .control-group input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96,165,250,0.18);
+  background: rgba(255,255,255,0.10);
 }
 
 .optimize-button {
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  background: #60a5fa; /* solid blue */
+  color: #0b1220;
+  border: 1px solid rgba(148,163,184,0.25);
+  padding: 0.7rem 1.4rem; /* match input height */
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  transition: background-color 0.15s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 8px 24px rgba(96,165,250,0.25);
   min-width: 200px;
 }
 
+/* Align button baseline with input boxes (which sit below their labels) */
+.controls-panel .optimize-button { margin-top: 1.9rem; }
+
 .optimize-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  background: #3b82f6; /* darker on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(59,130,246,0.35);
 }
 
 .optimize-button:disabled {
@@ -128,18 +139,25 @@
 }
 
 .map-container, .results-panel {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(15,23,42,0.55);
+  border: 1px solid rgba(148,163,184,0.22);
   backdrop-filter: blur(10px);
-  border-radius: 15px;
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .map-container h3, .results-panel h3 {
   margin: 0 0 1rem 0;
-  color: #333;
+  color: #e5e7eb;
   font-size: 1.3rem;
   font-weight: 600;
+}
+
+/* Add subtle background aurora inside the optimization panel */
+/* Solid background for the results panel to maximize chart contrast */
+.results-panel {
+  background: rgba(17,24,39,0.9); /* slate-900 with high opacity */
 }
 
 .solution-info {
@@ -168,13 +186,14 @@
 
 .pareto-chart h4 {
   margin: 0 0 0.5rem 0;
-  color: #333;
+  color: #e5e7eb; /* light text for dark panel */
   font-size: 1.1rem;
+  text-shadow: 0 0 12px rgba(99,102,241,0.25);
 }
 
 .pareto-chart p {
   margin: 0 0 1rem 0;
-  color: #666;
+  color: #94a3b8; /* slate-400 */
   font-size: 0.9rem;
   font-style: italic;
 }

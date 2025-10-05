@@ -225,22 +225,28 @@ function App() {
             <div className="pareto-chart">
               <h4>Pareto Front - Cost vs Coverage Trade-off</h4>
               <p>Click on points to see different solutions</p>
-              <ResponsiveContainer width="100%" height={300}>
-                <ScatterChart data={optimizationData.pareto_front}>
-                  <CartesianGrid strokeDasharray="3 3" />
+              <ResponsiveContainer width="100%" height={320}>
+                <ScatterChart data={optimizationData.pareto_front} margin={{ top: 10, right: 20, bottom: 20, left: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.25)" />
                   <XAxis 
                     type="number" 
                     dataKey="cost" 
                     name="Total Cost (₹)"
-                    label={{ value: 'Total Installation Cost (₹)', position: 'insideBottom', offset: -5 }}
+                    label={{ value: 'Total Installation Cost (₹)', position: 'insideBottom', offset: -5, fill: '#cbd5e1' }}
                     tickFormatter={(value) => `₹${(value/1000).toFixed(0)}k`}
+                    tick={{ fill: '#cbd5e1' }}
+                    axisLine={{ stroke: 'rgba(148,163,184,0.35)' }}
+                    tickLine={{ stroke: 'rgba(148,163,184,0.35)' }}
                   />
                   <YAxis 
                     type="number" 
                     dataKey="coverage_percentage" 
                     name="Coverage (%)"
-                    label={{ value: 'Coverage Percentage (%)', angle: -90, position: 'insideLeft' }}
+                    label={{ value: 'Coverage Percentage (%)', angle: -90, position: 'insideLeft', fill: '#cbd5e1' }}
                     domain={[0, 100]}
+                    tick={{ fill: '#cbd5e1' }}
+                    axisLine={{ stroke: 'rgba(148,163,184,0.35)' }}
+                    tickLine={{ stroke: 'rgba(148,163,184,0.35)' }}
                   />
                   <Tooltip 
                     content={({ active, payload, label }) => {
@@ -261,7 +267,7 @@ function App() {
                               <strong>Cost:</strong> ₹{data.cost.toLocaleString()}
                             </p>
                             <p style={{ margin: '0 0 3px 0' }}>
-                              <strong>Coverage:</strong> {data.coverage_percentage}%
+                              <strong>Coverage:</strong> {Number(data.coverage_percentage).toFixed(1)}%
                             </p>
                             <p style={{ margin: '0' }}>
                               <strong>Users Covered:</strong> {data.coverage}
@@ -274,7 +280,11 @@ function App() {
                   />
                   <Scatter 
                     dataKey="coverage_percentage" 
-                    fill="#8884d8"
+                    fill="#a78bfa"
+                    fillOpacity={0.95}
+                    stroke="#a78bfa"
+                    shape="circle"
+                    r={5}
                     onClick={handleParetoPointClick}
                     style={{ cursor: 'pointer' }}
                   />
