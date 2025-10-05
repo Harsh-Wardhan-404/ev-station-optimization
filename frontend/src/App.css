@@ -1,8 +1,8 @@
 .App {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #000000;
+  background: transparent;
   min-height: 100vh;
-  color: #333;
+  
 }
 
 .app-header {
@@ -192,7 +192,7 @@
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 8px;
 }
 
@@ -208,4 +208,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, #5a6fd8, #6a4190);
-}
+} */
