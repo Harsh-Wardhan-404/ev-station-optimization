@@ -5,6 +5,30 @@
   
 }
 
+.hero-header {
+  padding: 32px 24px 8px;
+  text-align: center;
+}
+
+.hero-title {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 36px;
+  background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 45%, #34d399 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 24px rgba(99,102,241,0.25), 0 0 18px rgba(56,189,248,0.18);
+}
+
+.hero-sub {
+  margin: 8px 0 0;
+  color: #d1d5db;
+  font-size: 14px;
+  opacity: .9;
+}
+
 .app-header {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);

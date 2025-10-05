@@ -102,6 +102,14 @@ function App() {
   return (
     <div className="App">
       
+      <header className="hero-header">
+  <h1 className="hero-title">
+    EV Charging Station Optimization
+  </h1>
+  {/* <p className="hero-sub">
+    Pune City · NSGA-II · Cost ↔ Coverage Trade‑offs
+  </p> */}
+</header>
 
 
       <div className="controls-panel">
