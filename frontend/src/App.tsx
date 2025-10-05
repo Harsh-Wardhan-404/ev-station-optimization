@@ -4,7 +4,6 @@ import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Responsive
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './App.css';
-import { LampContainer } from './components/ui/lamp';
 
 // Fix for default markers in react-leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -104,7 +103,6 @@ function App() {
     <div className="App">
       
 
-      <LampContainer/>
 
       <div className="controls-panel">
         <div className="control-group">
