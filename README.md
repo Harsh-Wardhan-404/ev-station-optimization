@@ -1,5 +1,9 @@
 # 🚗 EV Charging Station Optimization - Pune City
 
+## Demo
+
+![Project demo](assets/demo.png)
+
 A multi-objective optimization project for optimal EV charging station placement in Pune city using NSGA-II algorithm. This project demonstrates the trade-off between installation cost and user coverage using interactive maps and Pareto front visualization.
 
 ## 🌟 Features
